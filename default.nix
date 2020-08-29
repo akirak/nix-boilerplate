@@ -8,6 +8,7 @@ let
   ).gitignoreFilter;
   f = path: type:
     (gitignoreFilter ./. path type)
+    && (builtins.match ".+/\.recipes(/..+)?" (builtins.toString path) == null)
     && ! builtins.elem (baseNameOf path)
       [
         "default.nix"
