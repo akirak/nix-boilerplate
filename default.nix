@@ -1,6 +1,5 @@
 { pkgs ? import <nixpkgs> {} }:
 let
-  # gitignoreSource = import ./nix/gitignore.nix;
   gitignoreFilter = (
     import (import ./nix/sources.nix)."gitignore.nix" {
       inherit (pkgs) lib;
