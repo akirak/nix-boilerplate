@@ -1,0 +1,9 @@
+# Generic Nix
+result
+
+# pre-commit
+.pre-commit-config.yaml
+
+# Haskell Cabal
+dist
+dist-newstyle
