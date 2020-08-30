@@ -30,6 +30,8 @@
 ;; This library provides a function for initializing a Nix project
 ;; from inside Emacs.
 
+;; `nix-boilerplate-init' is the main entry point.
+
 ;;; Code:
 
 (require 'nix)
@@ -104,6 +106,7 @@ To be used in `nix-boilerplate-init-hook'."
                            (-partial #'on-finish dest)
                            "-p" "rsync" "--run" rsync-command-line))))
 
+;;;###autoload
 (defun nix-boilerplate-init (directory)
   "Initialize a Nix project in DIRECTORY."
   (interactive (list (read-directory-name "Directory: "
