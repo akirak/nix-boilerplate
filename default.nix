@@ -27,6 +27,7 @@ let
         "default.nix"
         "nix-boilerplate.el"
         "README.md"
+        "test.bash"
       ];
 in
 pkgs.srcOnly {
