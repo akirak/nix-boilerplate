@@ -9,28 +9,24 @@ let
     ".recipes"
     ".github/workflows"
   ];
+  ignoredFiles = [
+    "default.nix"
+    "nix-boilerplate.el"
+    "README.md"
+    "test.bash"
+  ];
+  regexpQuotePath = builtins.replaceStrings [ "." ] [ "\\." ];
   inDirectory = path: dir:
-    (
-      builtins.match
-        (
-          pkgs.lib.concatStringsSep
-            ""
-            [ ".+/" (builtins.replaceStrings [ "." ] [ "\\." ] dir) "(/..+)?" ]
-        )
-        (builtins.toString path) != null
-    );
-  f = path: type:
+    let
+      pathRegexp = ".+/" + (regexpQuotePath dir) + "(/..+)?";
+    in
+      builtins.match pathRegexp (builtins.toString path) != null;
+  toBeCopied = path: type:
     (gitignoreFilter ./. path type)
     && ! (pkgs.lib.any (inDirectory path) ignoredDirectories)
-    && ! builtins.elem (baseNameOf path)
-      [
-        "default.nix"
-        "nix-boilerplate.el"
-        "README.md"
-        "test.bash"
-      ];
+    && ! builtins.elem (baseNameOf path) ignoredFiles;
 in
 pkgs.srcOnly {
   name = "nix-boilerplate";
-  src = builtins.filterSource f ./.;
+  src = builtins.filterSource toBeCopied ./.;
 }
