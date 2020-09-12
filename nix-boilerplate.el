@@ -62,7 +62,7 @@
   :type 'hook)
 
 (defcustom nix-boilerplate-rsync-options
-  (list "-av"
+  (list "-avl"
         "--ignore-existing"
         "--chmod=u+w")
   "List of options passed to rsync when copying source files."
