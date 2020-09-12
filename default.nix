@@ -11,7 +11,6 @@ let
   ];
   ignoredFiles = [
     "default.nix"
-    "nix-boilerplate.el"
     "README.md"
     "test.bash"
   ];
@@ -24,6 +23,7 @@ let
   toBeCopied = path: type:
     (gitignoreFilter ./. path type)
     && ! (pkgs.lib.any (inDirectory path) ignoredDirectories)
+    && builtins.match ".+\.el" path == null
     && ! builtins.elem (baseNameOf path) ignoredFiles;
 in
 pkgs.srcOnly {
